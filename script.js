@@ -3256,8 +3256,55 @@ function submitQuiz() {
 function resetQuiz() {
     startLesson(currentLesson.id, document.querySelector('.lesson-item.active'));
 }
-// Hàm đóng mở menu (Thêm vào cuối file)
+// Hàm bật tắt menu
 function toggleMenu() {
     const sidebar = document.querySelector('.sidebar');
-    sidebar.classList.toggle('open');
+    // Thêm hoặc xóa class 'open'
+    if (sidebar.classList.contains('open')) {
+        sidebar.classList.remove('open');
+    } else {
+        sidebar.classList.add('open');
+    }
+}
+
+// Cập nhật lại hàm startLesson để tự đóng menu khi chọn bài
+// Tìm hàm startLesson cũ và thay thế đoạn đầu bằng đoạn này:
+function startLesson(id, element) {
+    // --- ĐOẠN MỚI: Đóng menu trên mobile ---
+    const sidebar = document.querySelector('.sidebar');
+    if (window.innerWidth <= 768 && sidebar.classList.contains('open')) {
+        sidebar.classList.remove('open');
+    }
+    // ---------------------------------------
+
+    // ... (Các đoạn code cũ bên dưới giữ nguyên) ...
+    // document.querySelectorAll('.lesson-item').forEach...
+    
+    // Code cũ của bạn...
+    document.querySelectorAll('.lesson-item').forEach(el => el.classList.remove('active'));
+    element.classList.add('active');
+
+    const lessonData = database.find(l => l.id === id);
+    if (!lessonData) return;
+
+    currentLesson = lessonData;
+    // ...
+    // ... (Giữ nguyên phần còn lại)
+    currentQuestions = JSON.parse(JSON.stringify(lessonData.questions));
+    shuffleArray(currentQuestions);
+
+    currentQuestions.forEach(q => {
+        if (q.type === 'single' || q.type === 'multiple') {
+            shuffleArray(q.options);
+        }
+    });
+
+    document.getElementById('welcome-screen').classList.add('hidden');
+    document.getElementById('quiz-area').classList.remove('hidden');
+    document.getElementById('quiz-title').innerText = currentLesson.title;
+    document.getElementById('score-badge').style.display = 'none';
+    document.getElementById('btn-submit').classList.remove('hidden');
+    document.getElementById('btn-reset').classList.add('hidden');
+
+    renderQuestions();
 }

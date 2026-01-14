@@ -263,69 +263,76 @@ button {
     color: white;
     margin-left: 10px;
 }
-/* Nút 3 gạch mặc định ẩn trên máy tính */
-#menu-toggle {
+.mobile-header {
     display: none;
+    background: var(--primary);
+    padding: 10px;
+    color: white;
+    position: sticky;
+    top: 0;
+    z-index: 1001;
+}
+
+#menu-toggle {
     background: transparent;
-    border: none;
-    font-size: 1.2rem;
-    color: var(--primary);
+    border: 2px solid white;
+    color: white;
+    padding: 5px 15px;
+    border-radius: 4px;
     cursor: pointer;
-    margin-bottom: 15px;
     font-weight: bold;
 }
 
 /* =========================================
-   MOBILE RESPONSIVE (GIAO DIỆN ĐIỆN THOẠI)
+   MOBILE RESPONSIVE (CHỈ CHẠY TRÊN ĐIỆN THOẠI)
    ========================================= */
 @media screen and (max-width: 768px) {
-    /* 1. Bố cục chính */
+    /* 1. Hiện thanh header chứa nút menu */
+    .mobile-header {
+        display: block;
+    }
+
+    /* 2. Bố cục dọc */
     .container {
-        position: relative; /* Để menu trượt lên trên */
-        display: block; /* Không dùng flex nữa để tránh vỡ */
+        display: block;
     }
 
-    /* 2. Menu (Sidebar) biến thành ngăn kéo trượt */
+    /* 3. Sidebar biến thành menu trượt */
     .sidebar {
-        position: fixed; /* Cố định trên màn hình */
-        top: 0;
+        position: fixed;
+        top: 0; /* Bắt đầu từ đỉnh màn hình */
         left: 0;
-        height: 100vh; /* Cao hết màn hình */
-        width: 280px;
-        z-index: 1000; /* Nổi lên trên cùng */
-        transform: translateX(-100%); /* Mặc định ẩn sang trái */
-        transition: transform 0.3s ease; /* Hiệu ứng trượt mượt mà */
-        box-shadow: 2px 0 10px rgba(0,0,0,0.2);
+        height: 100%; /* Chiều cao 100% màn hình */
+        width: 80%;   /* Chiếm 80% chiều ngang */
+        max-width: 300px;
+        z-index: 1002; /* Nổi lên trên cùng */
+        background-color: white;
+        box-shadow: 2px 0 20px rgba(0,0,0,0.5);
+        
+        /* Mặc định ẩn sang trái */
+        transform: translateX(-100%);
+        transition: transform 0.3s ease-in-out;
     }
 
-    /* Class này được JS thêm vào để hiện menu */
+    /* Khi có class 'open' thì trượt ra */
     .sidebar.open {
-        transform: translateX(0); /* Trượt ra */
-    }
-
-    /* 3. Nút 3 gạch hiện lên */
-    #menu-toggle {
-        display: inline-block;
+        transform: translateX(0) !important;
     }
 
     /* 4. Nội dung chính */
     .main-content {
-        width: 100%;
         padding: 15px;
-        padding-top: 10px;
+        width: 100%;
+        box-sizing: border-box; /* Quan trọng để không bị vỡ khung */
     }
 
-    /* 5. Tinh chỉnh giao diện bài tập trên mobile */
-    .question-card {
-        padding: 15px; /* Giảm padding cho đỡ chật */
+    /* Ẩn logo trong sidebar đi vì đã có trên header mobile (tùy chọn) */
+    .sidebar .logo-area {
+        display: none;
     }
     
+    /* Chỉnh lại phần kéo thả */
     .dnd-area {
         flex-direction: column;
-    }
-    
-    .dnd-column {
-        width: 100%;
-        margin-bottom: 20px;
     }
 }
