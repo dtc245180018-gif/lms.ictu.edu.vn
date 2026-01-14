@@ -3018,7 +3018,13 @@ function shuffleArray(array) {
 
 // 3. Bắt đầu bài học
 function startLesson(id, element) {
-    // UI active state
+    // --- THÊM ĐOẠN NÀY ---
+    // Nếu đang ở mobile (màn hình nhỏ), chọn bài xong thì đóng menu lại
+    if (window.innerWidth <= 768) {
+        document.querySelector('.sidebar').classList.remove('open');
+    }
+    // ---------------------
+  // UI active state
     document.querySelectorAll('.lesson-item').forEach(el => el.classList.remove('active'));
     element.classList.add('active');
 
@@ -3249,4 +3255,9 @@ function submitQuiz() {
 
 function resetQuiz() {
     startLesson(currentLesson.id, document.querySelector('.lesson-item.active'));
+}
+// Hàm đóng mở menu (Thêm vào cuối file)
+function toggleMenu() {
+    const sidebar = document.querySelector('.sidebar');
+    sidebar.classList.toggle('open');
 }

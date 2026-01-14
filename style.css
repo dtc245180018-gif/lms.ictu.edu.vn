@@ -263,68 +263,69 @@ button {
     color: white;
     margin-left: 10px;
 }
+/* Nút 3 gạch mặc định ẩn trên máy tính */
+#menu-toggle {
+    display: none;
+    background: transparent;
+    border: none;
+    font-size: 1.2rem;
+    color: var(--primary);
+    cursor: pointer;
+    margin-bottom: 15px;
+    font-weight: bold;
+}
+
 /* =========================================
-   MOBILE RESPONSIVE (DÁN VÀO CUỐI FILE CSS)
+   MOBILE RESPONSIVE (GIAO DIỆN ĐIỆN THOẠI)
    ========================================= */
 @media screen and (max-width: 768px) {
-    /* 1. Chuyển bố cục ngang thành dọc */
+    /* 1. Bố cục chính */
     .container {
-        flex-direction: column;
-        height: auto; /* Chiều cao tự động, không fix 100vh nữa */
+        position: relative; /* Để menu trượt lên trên */
+        display: block; /* Không dùng flex nữa để tránh vỡ */
     }
 
-    /* 2. Menu (Sidebar) nằm trên cùng */
+    /* 2. Menu (Sidebar) biến thành ngăn kéo trượt */
     .sidebar {
-        width: 100%;       /* Rộng full màn hình */
-        height: auto;      /* Chiều cao tùy nội dung */
-        max-height: 250px; /* Giới hạn chiều cao, nếu dài quá thì cuộn */
-        border-right: none;
-        border-bottom: 2px solid var(--primary);
+        position: fixed; /* Cố định trên màn hình */
+        top: 0;
+        left: 0;
+        height: 100vh; /* Cao hết màn hình */
+        width: 280px;
+        z-index: 1000; /* Nổi lên trên cùng */
+        transform: translateX(-100%); /* Mặc định ẩn sang trái */
+        transition: transform 0.3s ease; /* Hiệu ứng trượt mượt mà */
+        box-shadow: 2px 0 10px rgba(0,0,0,0.2);
     }
 
-    /* Thu nhỏ logo và tiêu đề menu cho gọn */
-    .logo-area {
-        padding: 10px;
-        font-size: 1.2rem;
-    }
-    .menu-title {
-        padding: 8px;
-    }
-    .lesson-item {
-        padding: 10px 15px; /* Giảm khoảng cách cho đỡ tốn chỗ */
+    /* Class này được JS thêm vào để hiện menu */
+    .sidebar.open {
+        transform: translateX(0); /* Trượt ra */
     }
 
-    /* 3. Nội dung chính nằm dưới */
+    /* 3. Nút 3 gạch hiện lên */
+    #menu-toggle {
+        display: inline-block;
+    }
+
+    /* 4. Nội dung chính */
     .main-content {
-        padding: 15px;
         width: 100%;
-        box-sizing: border-box; /* Đảm bảo padding không làm vỡ khung */
+        padding: 15px;
+        padding-top: 10px;
     }
 
-    /* 4. Điều chỉnh phần kéo thả (Drag & Drop) trên mobile */
+    /* 5. Tinh chỉnh giao diện bài tập trên mobile */
+    .question-card {
+        padding: 15px; /* Giảm padding cho đỡ chật */
+    }
+    
     .dnd-area {
-        flex-direction: column; /* Xếp cột dọc thay vì ngang */
+        flex-direction: column;
     }
     
     .dnd-column {
         width: 100%;
         margin-bottom: 20px;
-    }
-
-    /* Thêm chỉ dẫn cho cột kéo thả để dễ nhìn hơn */
-    .dnd-column:first-child::before {
-        content: "▼ KÉO CÁC Ô NÀY:";
-        font-weight: bold;
-        color: var(--primary);
-        display: block;
-        margin-bottom: 5px;
-    }
-    
-    .dnd-column:last-child::before {
-        content: "▼ THẢ VÀO ĐÂY:";
-        font-weight: bold;
-        color: #e67e22; /* Màu cam */
-        display: block;
-        margin-bottom: 5px;
     }
 }
