@@ -922,7 +922,7 @@ const database = [
       { id: 1, text: "Vật chất quyết định màu sắc của ý thức", isCorrect: false },
       { id: 2, text: "Ý thức có tính độc lập tương đối, tác động trở lại vật chất", isCorrect: true },
       { id: 3, text: "Vật chất quyết định nội dung của ý thức", isCorrect: false }, // Dù tù (vật chất) nhưng ý thức vẫn tự do
-      { id: 4, text: "Vai trò của vật chất với ý thức", isCorrect: false }
+      { id: 4, text: "Vai trò của vật chất với ý thức", isCorrect: true }
       // Lưu ý: Đề bài yêu cầu 2 đáp án, nhưng nội dung bài thơ nhấn mạnh tính Độc lập tương đối. 
       // Tuy nhiên, nếu bắt buộc chọn 2, có thể chọn ý "Ý thức có tính độc lập..." và ý phản ánh vai trò tích cực/sức mạnh tinh thần.
       // Trong các options trên, chỉ có option 2 là rõ nhất. 
@@ -975,7 +975,7 @@ const database = [
     options: [
       { id: 1, text: "Tôn trọng tính khách quan", isCorrect: false }, // Thiếu
       { id: 2, text: "Phát huy tính năng động chủ quan", isCorrect: false }, // Thiếu
-      { id: 3, text: "Tách biệt giữa tính khách quan và tính chủ quan", isCorrect: false },
+      { id: 3, text: "Tách biệt giữa tính khách quan và tính chủ quan", isCorrect: true },
       { id: 4, text: "Tôn trọng tính khách quan là chính", isCorrect: false }, // Đáp án chuẩn phải là kết hợp cả 2. 
       // Tuy nhiên trong 4 đáp án này, nếu phải chọn 1 cái bao quát nhất hoặc đúng nhất theo giáo trình cụ thể:
       // Thường là câu ghép "Tôn trọng khách quan, phát huy chủ quan".
